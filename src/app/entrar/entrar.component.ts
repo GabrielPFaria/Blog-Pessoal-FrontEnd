@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { UsuarioLogin } from '../model/UsuarioLogin';
+import { AuthService } from '../service/auth.service';
 
 @Component({
   selector: 'app-entrar',
@@ -7,9 +10,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EntrarComponent implements OnInit {
 
-  constructor() { }
+  usuarioLogin: UsuarioLogin = new UsuarioLogin()
 
-  ngOnInit(): void {
+  constructor(
+    private authService: AuthService,
+    private router: Router
+  ) { }
+
+  ngOnInit(){
+    window.scroll(0,0)
+  }
+
+  entrar(){
+    this.authService.entrar(this.usuarioLogin).subscribe((resp: UsuarioLogin) => {
+      this.usuarioLogin = resp
+      this.router.navigate(['/inicio'])
+
+    }, erro =>{if(erro.satatus == 500)
+    {alert('Usuario ou senha estão incorretos')}})
   }
 
 }
