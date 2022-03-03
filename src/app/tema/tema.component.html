@@ -4,19 +4,19 @@
             <a routerLink='/inicio' class="text-white text-left">
                 <i class="fa fa-angle-doble-left" aria-hidden="true">inicio</i>
             </a>
-            <h1 class="fs-54 text-center">Temas</h1>
-            <h5 class="fs-18 text-center">Veja aqui todos os temas cadastrados ou cadastre um novo</h5>
+            <h1 class="fs-54 text-center text-white">Temas</h1>
+            <h5 class="fs-18 text-center text-white">Veja aqui todos os temas cadastrados ou cadastre um novo</h5>
 
             <div class="row d-flex justify-content-center my-4 mb-3">
                 <div class="col-md-3">
                     <div class="form-group">
-                        <input type="text" class="form-control" id="descricao" placeholder="Digite a descrição do tema">
+                        <input [(ngModel)]='tema.descricao' type="text" class="form-control" id="descricao" placeholder="Digite a descrição do tema">
                     </div>
                 </div>
             </div>
 
             <div class="d-flex justify-content-center mb-5">
-                <button class="btn btn-light">Cadastrar</button>
+                <button class="btn btn-light" (click)="cadastrar()">Cadastrar</button>
             </div>
            
         </div>
@@ -35,29 +35,21 @@
                 <thead>
                   <tr>
                     <th scope="col">#</th>
-                    <th scope="col">First</th>
-                    <th scope="col">Last</th>
-                    <th scope="col">Handle</th>
+                    <th scope="col">Descrição</th>
+                    <th scope="col" class="text-right">Modificações</th>
+                  
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">2</th>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>@fat</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">3</th>
-                    <td colspan="2">Larry the Bird</td>
-                    <td>@twitter</td>
-                  </tr>
+                  <tr *ngFor='let tema of listaTema'>
+                    <th>{{tema.id}}</th>
+                    <td>{{tema.descricao}}</td>
+                    <td class="d-flex justify-content-end">
+                      <button class="btn btn-info mr-3" [routerLink]="['/tema-edit',tema.id]">Editar</button>
+                      <button class="btn btn-danger" [routerLink]="['/tema-delete',tema.id]">Apagar</button>
+                    </td>
+               
+                  </tr>                 
                 </tbody>
               </table>
         </div>
